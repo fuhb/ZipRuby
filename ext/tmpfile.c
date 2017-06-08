@@ -101,7 +101,7 @@ char *zipruby_tmpnam(void *data, int len, char *perr_msg) {
   strcat(filnam, "/zipruby.XXXXXX");
 
   if ((fd = mkstemp(filnam)) == -1) {
-	sprintf(perr_msg, "%s:%d calloc error: %s", __FILE__,__LINE__, strerror( errno ));
+	sprintf(perr_msg, "%s:%d mkstemp error: %s", __FILE__,__LINE__, strerror( errno ));
     free(filnam);
     return NULL;
   }
@@ -109,13 +109,13 @@ char *zipruby_tmpnam(void *data, int len, char *perr_msg) {
   if (data) {
     if (len < 0) {
       if (write_from_proc((VALUE) data, fd) == -1) {
-		  sprintf(perr_msg, "%s:%d calloc error: %s", __FILE__,__LINE__, strerror( errno ));
+		  sprintf(perr_msg, "%s:%d write_from_proc error: %s", __FILE__,__LINE__, strerror( errno ));
         free(filnam);
         return NULL;
       }
     } else {
       if (write(fd, data, len) == -1) {
-		  sprintf(perr_msg, "%s:%d calloc error: %s", __FILE__,__LINE__, strerror( errno ));
+		  sprintf(perr_msg, "%s:%d write error: %s", __FILE__,__LINE__, strerror( errno ));
         free(filnam);
         return NULL;
       }
@@ -123,7 +123,7 @@ char *zipruby_tmpnam(void *data, int len, char *perr_msg) {
   }
 
   if (close(fd) == -1) {
-	  sprintf(perr_msg, "%s:%d calloc error: %s", __FILE__,__LINE__, strerror( errno ));
+	  sprintf(perr_msg, "%s:%d close error: %s", __FILE__,__LINE__, strerror( errno ));
     free(filnam);
     return NULL;
   }
