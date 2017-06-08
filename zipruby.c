@@ -232,7 +232,7 @@ char *zipruby_tmpnam(void *data, int len, char *perr_msg) {
   int namlen = 20;
   char *dirnam = "/tmp";
 #endif
-dirnam = "/Users/xiangyang/tmp/tmp";
+
   if ((filnam = calloc(namlen, sizeof(char))) == NULL) {
 	sprintf(perr_msg, "%s:%d calloc error: %s", __FILE__,__LINE__, strerror( errno ));
     return NULL;
