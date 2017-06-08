@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>README - Zip/Ruby - Ruby bindings for libzip.</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-Zip-2FRuby">Zip/Ruby</a>
+    <li><a href="#label-Description">Description</a>
+    <li><a href="#label-Source+Code">Source Code</a>
+    <li><a href="#label-Install">Install</a>
+    <li><a href="#label-Download">Download</a>
+    <li><a href="#label-Example">Example</a>
+    <li><a href="#label-reading+zip+archive">reading zip archive</a>
+    <li><a href="#label-creating+zip+archive">creating zip archive</a>
+    <li><a href="#label-modifying+zip+archive">modifying zip archive</a>
+    <li><a href="#label-encrypt-2Fdecrypt+zip+archive">encrypt/decrypt zip archive</a>
+    <li><a href="#label-modifying+zip+data+in+memory">modifying zip data in memory</a>
+    <li><a href="#label-adding+directory+recursively">adding directory recursively</a>
+    <li><a href="#label-extract+all+files">extract all files</a>
+    <li><a href="#label-License">License</a>
+    <li><a href="#label-libzip">libzip</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="./LICENSE_libzip.html">LICENSE.libzip</a>
+  
+    <li><a href="./README_txt.html">README</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page README.txt">
+
+<h1 id="label-Zip-2FRuby">Zip/Ruby<span><a href="#label-Zip-2FRuby">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<p>Copyright © 2008-2010 SUGAWARA Genki &lt;sgwr_dts@yahoo.co.jp&gt;</p>
+
+<h2 id="label-Description">Description<span><a href="#label-Description">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Ruby bindings for libzip.</p>
+
+<p>libzip is a C library for reading, creating, and modifying zip archives.</p>
+
+<h2 id="label-Source+Code">Source Code<span><a href="#label-Source+Code">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p><a
+href="https://bitbucket.org/winebarrel/zipruby">bitbucket.org/winebarrel/zipruby</a></p>
+
+<h2 id="label-Install">Install<span><a href="#label-Install">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>gem install zipruby</p>
+
+<h2 id="label-Download">Download<span><a href="#label-Download">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p><a
+href="https://rubyforge.org/frs/?group_id=6124">rubyforge.org/frs/?group_id=6124</a></p>
+
+<h2 id="label-Example">Example<span><a href="#label-Example">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h3 id="label-reading+zip+archive">reading zip archive<span><a href="#label-reading+zip+archive">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">n</span> = <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">num_files</span> <span class="ruby-comment"># number of entries</span>
+
+  <span class="ruby-identifier">n</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">entry_name</span> = <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">get_name</span>(<span class="ruby-identifier">i</span>) <span class="ruby-comment"># get entry name from archive</span>
+
+    <span class="ruby-comment"># open entry</span>
+    <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">fopen</span>(<span class="ruby-identifier">entry_name</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-comment"># or ar.fopen(i) do |f|</span>
+      <span class="ruby-identifier">name</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">name</span>           <span class="ruby-comment"># name of the file</span>
+      <span class="ruby-identifier">size</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">size</span>           <span class="ruby-comment"># size of file (uncompressed)</span>
+      <span class="ruby-identifier">comp_size</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">comp_size</span> <span class="ruby-comment"># size of file (compressed)</span>
+
+      <span class="ruby-identifier">content</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> <span class="ruby-comment"># read entry content</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Zip::Archive includes Enumerable</span>
+  <span class="ruby-identifier">entry_names</span> = <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">f</span>.<span class="ruby-identifier">name</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># read huge entry</span>
+<span class="ruby-constant">BUFSIZE</span> = <span class="ruby-value">8192</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">buf</span> = <span class="ruby-string">&#39;&#39;</span>
+
+    <span class="ruby-keyword">while</span> <span class="ruby-identifier">chunk</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">BUFSIZE</span>)
+      <span class="ruby-identifier">buf</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">chunk</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># or</span>
+    <span class="ruby-comment"># f.read do |chunk|</span>
+    <span class="ruby-comment">#   buf &lt;&lt; chunk</span>
+    <span class="ruby-comment"># end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h3 id="label-creating+zip+archive">creating zip archive<span><a href="#label-creating+zip+archive">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+
+<span class="ruby-identifier">bar_txt</span> =  <span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;bar.txt&#39;</span>)
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>, <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">CREATE</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment"># if overwrite: ..., Zip::CREATE | Zip::TRUNC) do |ar|</span>
+  <span class="ruby-comment"># specifies compression level: ..., Zip::CREATE, Zip::BEST_SPEED) do |ar|</span>
+
+    <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_file</span>(<span class="ruby-string">&#39;foo.txt&#39;</span>) <span class="ruby-comment"># add file to zip archive</span>
+
+  <span class="ruby-comment"># add file to zip archive from File object</span>
+  <span class="ruby-identifier">ar</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">bar_txt</span> <span class="ruby-comment"># or ar.add_io(bar_txt)</span>
+
+  <span class="ruby-comment"># add file to zip archive from buffer</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_buffer</span>(<span class="ruby-string">&#39;zoo.txt&#39;</span>, <span class="ruby-string">&#39;Hello, world!&#39;</span>)
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">bar_txt</span>.<span class="ruby-identifier">rewind</span>
+
+<span class="ruby-comment"># include directory in zip archive</span>
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_dir</span>(<span class="ruby-string">&#39;dirname&#39;</span>)
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_file</span>(<span class="ruby-string">&#39;dirname/foo.txt&#39;</span>, <span class="ruby-string">&#39;foo.txt&#39;</span>)
+      <span class="ruby-comment"># args: &lt;entry name&gt;     ,  &lt;source&gt;</span>
+
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_io</span>(<span class="ruby-string">&#39;dirname/bar.txt&#39;</span>, <span class="ruby-identifier">bar_txt</span>)
+    <span class="ruby-comment"># args: &lt;entry name&gt;     , &lt;source&gt;</span>
+
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_buffer</span>(<span class="ruby-string">&#39;dirname/zoo.txt&#39;</span>, <span class="ruby-string">&#39;Hello, world!&#39;</span>)
+        <span class="ruby-comment"># args: &lt;entry name&gt;     , &lt;source&gt;</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">bar_txt</span>.<span class="ruby-identifier">close</span> <span class="ruby-comment"># close file after archive closed</span>
+
+<span class="ruby-comment"># add huge file</span>
+<span class="ruby-identifier">source</span> = <span class="ruby-node">%w(London Bridge is falling down)</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment"># lb.txt =&gt; &#39;LondonBridgeisfallingdown&#39;</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add</span>(<span class="ruby-string">&#39;lb.txt&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-comment"># add(&lt;filename&gt;, &lt;mtime&gt;)</span>
+    <span class="ruby-identifier">source</span>.<span class="ruby-identifier">shift</span> <span class="ruby-comment"># end of stream is nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h3 id="label-modifying+zip+archive">modifying zip archive<span><a href="#label-modifying+zip+archive">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+
+<span class="ruby-identifier">bar_txt</span> = <span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;bar.txt&#39;</span>)
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment"># replace file in zip archive</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">replace_file</span>(<span class="ruby-value">0</span>, <span class="ruby-string">&#39;foo.txt&#39;</span>)
+
+  <span class="ruby-comment"># replace file in zip archive with File object</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">replace_io</span>(<span class="ruby-value">1</span>, <span class="ruby-identifier">bar_txt</span>)
+
+  <span class="ruby-comment"># if commit changes</span>
+  <span class="ruby-comment"># ar.commit</span>
+
+  <span class="ruby-comment"># replace file in zip archive with buffer</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">replace_buffer</span>(<span class="ruby-value">2</span>, <span class="ruby-string">&#39;Hello, world!&#39;</span>)
+  <span class="ruby-comment"># or</span>
+  <span class="ruby-comment"># ar.replace_buffer(&#39;entry name&#39;, &#39;Hello, world!&#39;)</span>
+  <span class="ruby-comment"># if ignore case distinctions </span>
+  <span class="ruby-comment"># ar.replace_buffer(&#39;entry name&#39;, &#39;Hello, world!&#39;, Zip::FL_NOCASE)</span>
+
+  <span class="ruby-comment"># add or replace file in zip archive</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_or_replace_file</span>(<span class="ruby-string">&#39;zoo.txt&#39;</span>, <span class="ruby-string">&#39;foo.txt&#39;</span>)
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># append comment    </span>
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">comment</span> = <span class="ruby-value">&lt;&lt;-EOS
+    jugem jugem gokou no surikere
+    kaijari suigyo no
+    suigyoumatsu unraimatsu furaimatsu
+  EOS</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">bar_txt</span>.<span class="ruby-identifier">close</span> <span class="ruby-comment"># close file after archive closed</span>
+
+<span class="ruby-comment"># ar1 import ar2 entries</span>
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;ar1.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar1</span><span class="ruby-operator">|</span>
+  <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;ar2.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar2</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ar1</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">ar2</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h3 id="label-encrypt-2Fdecrypt+zip+archive">encrypt/decrypt zip archive<span><a href="#label-encrypt-2Fdecrypt+zip+archive">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+
+<span class="ruby-comment"># encrypt</span>
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>, <span class="ruby-string">&#39;password&#39;</span>) <span class="ruby-comment"># return true if encrypted</span>
+<span class="ruby-comment"># or</span>
+<span class="ruby-comment"># Zip::Archive.open(&#39;filename.zip&#39;) do |ar|</span>
+<span class="ruby-comment">#   ar.encrypt(&#39;password&#39;)</span>
+<span class="ruby-comment"># end</span>
+
+<span class="ruby-comment"># decrypt</span>
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>, <span class="ruby-string">&#39;password&#39;</span>) <span class="ruby-comment"># return true if decrypted</span>
+<span class="ruby-comment"># or</span>
+<span class="ruby-comment"># Zip::Archive.open(&#39;filename.zip&#39;) do |ar|</span>
+<span class="ruby-comment">#   ar.decrypt(&#39;password&#39;)</span>
+<span class="ruby-comment"># end</span>
+</pre>
+
+<h3 id="label-modifying+zip+data+in+memory">modifying zip data in memory<span><a href="#label-modifying+zip+data+in+memory">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+
+<span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">binmode</span>
+
+<span class="ruby-identifier">buf</span> = <span class="ruby-string">&#39;&#39;</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open_buffer</span>(<span class="ruby-identifier">buf</span>, <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">CREATE</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_buffer</span>(<span class="ruby-string">&#39;bar.txt&#39;</span>, <span class="ruby-string">&#39;zoo&#39;</span>);
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">buf2</span> = <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open_buffer</span>(<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">CREATE</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_buffer</span>(<span class="ruby-string">&#39;bar.txt&#39;</span>, <span class="ruby-string">&#39;zoo&#39;</span>);
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open_buffer</span>(<span class="ruby-identifier">buf</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">name</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># read from stream</span>
+<span class="ruby-identifier">zip_data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;foo.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">f</span>.<span class="ruby-identifier">binmode</span>
+  <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">stream</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-keyword">return</span> <span class="ruby-identifier">zip_data</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-value">256</span>) }
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open_buffer</span>(<span class="ruby-identifier">stream</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">num_files</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># output huge zip data to stdout</span>
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open_buffer</span>(<span class="ruby-identifier">zip_data</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">read</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">chunk</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-identifier">chunk</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h3 id="label-adding+directory+recursively">adding directory recursively<span><a href="#label-adding+directory+recursively">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>, <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">CREATE</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_dir</span>(<span class="ruby-string">&#39;dir&#39;</span>)
+
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-string">&#39;dir   /*&#39;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
+      <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_dir</span>(<span class="ruby-identifier">path</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">add_file</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">path</span>) <span class="ruby-comment"># add_file(&lt;entry name&gt;, &lt;source path&gt;)</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h3 id="label-extract+all+files">extract all files<span><a href="#label-extract+all+files">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zipruby&#39;</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">&#39;fileutils&#39;</span>
+
+<span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;filename.zip&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ar</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">ar</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">zf</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">zf</span>.<span class="ruby-identifier">directory?</span>
+      <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-identifier">zf</span>.<span class="ruby-identifier">name</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">dirname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">zf</span>.<span class="ruby-identifier">name</span>)
+      <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-identifier">dirname</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">dirname</span>)
+
+      <span class="ruby-identifier">open</span>(<span class="ruby-identifier">zf</span>.<span class="ruby-identifier">name</span>, <span class="ruby-string">&#39;wb&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">zf</span>.<span class="ruby-identifier">read</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h2 id="label-License">License<span><a href="#label-License">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<pre>Copyright (c) 2008-2010 SUGAWARA Genki &lt;sgwr_dts@yahoo.co.jp&gt;
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+      Redistributions of source code must retain the above copyright notice, 
+      this list of conditions and the following disclaimer.
+      Redistributions in binary form must reproduce the above copyright notice, 
+      this list of conditions and the following disclaimer in the documentation 
+      and/or other materials provided with the distribution.
+      The names of its contributors may not be used to endorse or promote products 
+       derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND 
+ANY EXPRESS OR IMPLIED WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND 
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY 
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE.</pre>
+
+<h3 id="label-libzip">libzip<span><a href="#label-libzip">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Zip/Ruby contains libzip.</p>
+
+<p>libzip is a C library for reading, creating, and modifying zip archives.</p>
+
+<pre>distribution site:
+  http://www.nih.at/libzip/
+  ftp.nih.at /pub/nih/libzip
+
+authors:
+  Dieter Baron &lt;dillo@giga.or.at&gt;
+  Thomas Klausner &lt;tk@giga.or.at&gt;</pre>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
